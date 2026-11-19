@@ -65,7 +65,7 @@ const STYLE = `
 [data-oc-emoji-picker="1"]:hover { opacity: 1; background: color-mix(in oklab, currentColor 12%, transparent) !important; }
 [data-oc-emoji-picker="1"][data-open="1"] { opacity: 1; background: color-mix(in oklab, currentColor 14%, transparent) !important; }
 [data-oc-emoji-pop] {
-  position: fixed; z-index: 1000; width: ${POP_WIDTH}px;
+  position: fixed; z-index: 2147483000; width: ${POP_WIDTH}px; max-width: calc(100vw - 16px);
   display: flex; flex-direction: column;
   border-radius: 10px; border: 1px solid var(--v2-border-border-base, #3a3a3f);
   background: var(--v2-background-bg-layer-02, #232326);
@@ -359,8 +359,9 @@ export default Plugin.define({
     const skinChar = (tone: number) => charFor("+1", tone) ?? "👍"
 
     const Popup = () => (
-      <Portal>
-        <div data-oc-emoji-pop="1" style={{ left: `${rect().left}px`, bottom: `${rect().bottom}px` }}>
+      <Portal mount={document.body}>
+        <Show when={open()}>
+          <div data-oc-emoji-pop="1" style={{ left: `${rect().left}px`, bottom: `${rect().bottom}px` }}>
           <div class="emj-head">
             <input
               class="emj-search"
@@ -474,12 +475,13 @@ export default Plugin.define({
           </div>
           <div class="emj-foot">{foot()}</div>
         </div>
-      </Portal>
+      </Show>
+    </Portal>
     )
 
     ctx.add(Slot, {
       at: "window.bottom",
-      render: () => (open() ? <Popup /> : null),
+      render: () => <Popup />,
     })
   },
 })
