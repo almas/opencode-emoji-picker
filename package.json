@@ -1,0 +1,43 @@
+{
+  "name": "opencode-emoji-picker",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "OpenCode Desktop に絵文字ピッカー（お気に入り・最近使った・肌色・検索、送信ボタン横のアイコンから起動）を追加するプラグイン",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/almas/opencode-emoji-picker.git"
+  },
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "emoji",
+    "emoji-picker"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./rpc": "./src/rpc.ts",
+    "./gui-experimental": "./dist/gui-experimental.cjs"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "dependencies": {
+    "@opencode/plugin": "2.3.0"
+  },
+  "devDependencies": {
+    "@emoji-mart/data": "^1.2.1",
+    "solid-js": "^1.9.0",
+    "typescript": "^5.6.0",
+    "vite": "^7.0.0",
+    "vite-plugin-solid": "^2.11.0",
+    "vitest": "^3.2.7"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "gen-data": "node scripts/generate-data.cjs",
+    "build": "vite build"
+  }
+}
